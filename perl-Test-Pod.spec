@@ -1,11 +1,14 @@
 Name:           perl-Test-Pod
 Version:        1.48
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Test POD files for correctness
 Group:          Development/Libraries
 License:        GPL+ or Artistic
 URL:            http://search.cpan.org/dist/Test-Pod/
 Source0:        http://search.cpan.org/CPAN/authors/id/D/DW/DWHEELER/Test-Pod-%{version}.tar.gz
+# Fix license declaration, bug #1065946,
+# https://github.com/theory/test-pod/issues/5
+Patch0:         Test-Pod-1.48-Change-license-statement-in-README-to-Same-as-Perl.patch
 BuildArch:      noarch
 BuildRequires:  perl
 BuildRequires:  perl(File::Find)
@@ -17,8 +20,8 @@ BuildRequires:  perl(Test::Builder::Tester) >= 1.02
 BuildRequires:  perl(Test::More) >= 0.62
 BuildRequires:  perl(warnings)
 Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
+Requires:       perl(File::Find)
 Requires:       perl(Pod::Simple) >= 3.05
-Requires:       perl(Test::Builder::Tester) >= 1.02
 Requires:       perl(Test::More) >= 0.62
 
 %description
@@ -27,6 +30,7 @@ the heavy lifting.
 
 %prep
 %setup -q -n Test-Pod-%{version}
+%patch0 -p1
 
 %build
 perl Build.PL installdirs=vendor
@@ -45,6 +49,11 @@ LC_ALL=C ./Build test
 %{_mandir}/man3/Test::Pod.3pm*
 
 %changelog
+* Wed Aug 06 2014 Petr Pisar <ppisar@redhat.com> - 1.48-3
+- Clarify license (bug #1065946)
+- Remove run-time dependency on Test::Builder::Tester (bug #1065944)
+- Declare run-time dependency on File::Find (bug #1066006)
+
 * Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.48-2
 - Mass rebuild 2013-12-27
 
