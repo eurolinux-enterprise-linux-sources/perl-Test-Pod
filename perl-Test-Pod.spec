@@ -1,6 +1,6 @@
 Name:           perl-Test-Pod
 Version:        1.48
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test POD files for correctness
 Group:          Development/Libraries
 License:        GPL+ or Artistic
@@ -45,6 +45,9 @@ LC_ALL=C ./Build test
 %{_mandir}/man3/Test::Pod.3pm*
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.48-2
+- Mass rebuild 2013-12-27
+
 * Mon May 06 2013 Petr Šabata <contyk@redhat.com> - 1.48-1
 - 1.48 bump, Pod::Simple compatibility enhancements
 
